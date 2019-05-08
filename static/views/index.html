@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tetris</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/animation.css">
+    <script src="/libs/jquery331.js"></script>
+    <script src="/libs/three.min.js"></script>
+    <script src="/libs/OrbitControls.js"></script>
+    <!-- <script src="/js3D/Main3D.js"></script> -->
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/Settings.js"></script>
+    <script src="/js3D/Game.js"></script>
+    <script src="/js/Main.js"></script>
+    <script src="/js/Net.js"></script>
+    <script src="/js/Ui.js"></script>
+</head>
+
+<body>
+    <div id='bg-div'>
+        <div id='login-div'>
+            <span class="row">
+                <label>Nick:</label>
+                <input id='nick' type='text'>
+            </span>
+
+            <button id='login-bt' class="bt">Rozpocznij!</button>
+        </div>
+
+        <div id="waiting" class="overlay" style="display:none;">
+            <div>
+                <h1>Czekaj aż drugi gracz dołączy</h1>
+                <div class="lds-roller">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='root' style="display: none;"></div>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+#root{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+#bg-div{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/gfx/tetris-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#login-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background:rgba(0, 0, 0, 0.808);
+    border: 4px solid rgb(241, 214, 60);
+    width: 350px;
+    height: 300px;
+}
+#nick{
+    margin-left: 10px;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#login-bt{
+    margin-top: 20px;
+}
+#nick{
+    border: 5px double orange;
+    padding: 5px;
+    font-size: 1.2em;
+    color: white;
+    background: rgba(255, 136, 0, 0.383)
+}
+.bt{
+    color: black;
+    background-image: linear-gradient(-90deg, orange,yellow,orange);
+    padding: 10px;
+    font-size: 1.2em;
+    border: 5px double orange;
+}
+.bt:hover{
+    cursor: pointer;
+    background-image: linear-gradient(-90deg, yellow,orange,yellow);
+}
+
+#waiting{
+    color: white;
+}
+
+#waiting>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
