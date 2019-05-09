@@ -32,6 +32,16 @@ body {
     width: 350px;
     height: 300px;
 }
+#rooms-div{
+    display: none;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    background:rgba(0, 0, 0, 0.808);
+    border: 4px solid rgb(241, 214, 60);
+    width: 750px;
+    height: 550px;
+}
 #nick{
     margin-left: 10px;
 }
@@ -70,6 +80,43 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+#title{
+    text-align: center;
+    font-size: 1.6em;
+    padding: 15px;
+}
+
+#lists{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.div-title{
+    text-align: center;
+    font-weight: bold;
+}
+
+#room-list-div{
+    width: 50%;
+}
+
+#player-list-div{
+    width: 25%;
+}
+
+.player-row{
+    padding: 6px 15px;
+}
+
+.room-row{
+    padding: 6px 15px;
+}
+
+.room-row:hover{
+    background: rgba(0, 0, 0, 0.808);
 }
 
 .overlay{
