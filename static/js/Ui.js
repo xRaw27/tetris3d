@@ -6,6 +6,8 @@ class Ui {
         this.rootDiv = $('#root')
         this.playerList = $('#player-list')
         this.roomList = $('#room-list')
+        this.room = $('#room')
+        this.playersInRoomList = $('#players-in-room-list')
         this.init()
     }
 
@@ -15,6 +17,9 @@ class Ui {
         })
         $('#create-room-bt').on('click', () => {
             net.createRoom()
+        })
+        $('#start-game-bt').on('click', () => {
+            this.startGame()
         })
     }
 
@@ -46,8 +51,20 @@ class Ui {
         })
     }
 
+    connectToRoom(data) {
+        this.roomsMain.css('display', 'none')
+        this.room.css('display', 'block')
+        $('#room-name').text(data.name)
+        data.players.forEach(player => {
+            console.log("REEEEE")
+            this.playersInRoomList.append($('<div class="player-row">').append(player))
+        })
+    }
+
     startGame() {
         console.log('START GAME!!!')
+        net.startGame()
+        game.init()
         this.bgDiv.css('display', 'none')
         this.rootDiv.css('display', '')
     }

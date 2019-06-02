@@ -15,6 +15,11 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/Settings.js"></script>
+
+    <script src="/js3D/WireframeFloor.js"></script>
+    <script src="/js3D/WireframeSide.js"></script>
+    <script src="/blocks3D/Block.js"></script>
+    <script src="/blocks3D/SingleBlock.js"></script>
     <script src="/js3D/Game.js"></script>
     <script src="/js/Main.js"></script>
     <script src="/js/Net.js"></script>
@@ -46,6 +51,12 @@
                     <button id='create-room-bt'>STWÓRZ POKÓJ</button>
                 </div>
             </div>
+        </div>
+        <div id='room'>
+            <div id='room-name'></div>
+            <div id='players-in-room-list'></div>
+            <button id='start-game-bt' class='bt'>Start</button>
+
         </div>
 
         <div id="waiting" class="overlay" style="display:none;">
