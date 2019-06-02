@@ -19,4 +19,8 @@ class Net {
     joinRoom(id) {
         this.socket.emit('join-room', { id: id })
     }
+    createRoom() {
+        this.socket.emit('create-room')
+        console.log('he?')
+    }
 }

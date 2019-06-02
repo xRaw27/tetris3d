@@ -13,12 +13,17 @@ class Ui {
         $('#login-bt').on('click', () => {
             net.login($('#nick').val())
         })
+        $('#create-room-bt').on('click', () => {
+            net.createRoom()
+        })
     }
 
     showRoomList(data) {
         $('#title').text('Witaj ' + data.nick + '!')
         this.loginMain.css('display', 'none')
         this.roomsMain.css('display', 'flex')
+        this.playerList.empty()
+        this.roomList.empty()
         data.playerList.forEach(player => {
             this.playerList.append($('<div class="player-row">').append(player))
         })
@@ -30,15 +35,16 @@ class Ui {
     }
     refreshRoomList(data) {
         this.playerList.empty()
+        this.roomList.empty()
         data.playerList.forEach(player => {
             this.playerList.append($('<div class="player-row">').append(player))
         })
+        data.roomList.forEach(room => {
+            this.roomList.append($('<div class="room-row">').append(room.name).on('click', () => {
+                net.joinRoom(room.id)
+            }))
+        })
     }
-
-    // startWaiting() {
-    //     this.loginMain.css('display', 'none')
-    //     this.waitingMain.css('display', '')
-    // }
 
     startGame() {
         console.log('START GAME!!!')
