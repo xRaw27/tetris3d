@@ -7,6 +7,7 @@ class Gameroom {
         this.name = socket.nick + '-room'
         this.players = []
         this.blocks = []
+        this.block = null
         this.connectPlayer(socket, io)
         this.fallingInterval = false
     }
@@ -19,23 +20,39 @@ class Gameroom {
         socket.broadcast.to(this.id).emit('test', { name: this.name, players: this.players })
     }
     startGame(io) {
-        //io.to(this.id).emit('start-game2')
+        io.to(this.id).emit('game-started')
         this.addBlock(io)
     }
-    moveBlock(io, direction) {
+    moveBlock(direction) {
+        if (this.block == null) return
         this.block.moveBlock(direction)
+    }
+    rotateBlockZ() {
+        if (this.block == null) return
+        this.block.rotateBlockZ()
+    }
+    rotateBlockY() {
+        if (this.block == null) return
+        this.block.rotateBlockY()
+    }
+    updateBlock(io) {
         io.to(this.id).emit('update-block', { block: this.block.getBlocks() })
     }
     addBlock(io) {
-        this.block = new Block(3, 10, 4, [[1, 0, 0], [0, 0, 0], [-1, 0, 0], [0, 1, 0]])
+        this.block = new Block(3, 15, 4, [[1, 0, 0], [0, 0, 0], [-1, 0, 0], [0, 1, 0]])
         io.to(this.id).emit('add-block', { block: this.block.getBlocks() })
-        // this.fallingInterval = true
-        // let interval = setInterval(() => {
-        //     if (this.fallingInterval) {
-        //         io.to(this.id).emit('block-fall')
-        //     }
-        // }, 500)
+
+        this.fallingInterval = true
+        let interval = setInterval(() => {
+            if (this.fallingInterval) {
+                this.block.fall()
+                this.updateBlock(io)
+            }
+        }, 500)
     }
+    // blockFall(io) {
+
+    // }
 
 }
 module.exports = Gameroom

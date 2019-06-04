@@ -19,7 +19,7 @@ class Ui {
             net.createRoom()
         })
         $('#start-game-bt').on('click', () => {
-            this.startGame()
+            net.startGame()
         })
     }
 
@@ -63,7 +63,6 @@ class Ui {
 
     startGame() {
         console.log('START GAME!!!')
-        net.startGame()
         game.init()
         this.bgDiv.css('display', 'none')
         this.rootDiv.css('display', '')

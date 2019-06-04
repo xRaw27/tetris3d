@@ -58,11 +58,21 @@ io.on('connection', socket => {
         room.startGame(io)
     })
 
-    socket.on('move-block', data => {
+    socket.on('block-control', data => {
         if (!socket.connectedToRoom) return
         room = rooms.find(room => room.id === socket.roomId)
-        console.log('He?')
-        room.moveBlock(io, data.direction)
+        switch (data.action) {
+            case 'move-block':
+                room.moveBlock(data.direction)
+                break
+            case 'rotate-block-z':
+                room.rotateBlockZ()
+                break
+            case 'rotate-block-y':
+                room.rotateBlockY()
+                break
+        }
+        room.updateBlock(io)
     })
 })
 

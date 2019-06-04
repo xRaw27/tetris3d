@@ -19,17 +19,27 @@ module.exports = class Block {
     }
     initBlock() {
         this.shape.forEach(element => {
-            let singleBlock = { x: this.x + element[0], y: this.x + element[1], z: this.x + element[2] }
+            let singleBlock = { x: this.x + element[0], y: this.y + element[1], z: this.z + element[2] }
             this.singleBlocks.push(singleBlock)
         })
         this.consoleLog()
     }
-    blockFall() {
+    fall() {
+        if (!this.fallCheck()) {
+            console.log("STOP!!!!")
+        }
         this.y -= 1
         this.singleBlocks.forEach(element => {
             element.y -= 1
         })
         this.consoleLog()
+    }
+    fallCheck() {
+        let canFall = true
+        this.singleBlocks.forEach(element => {
+            if (element.y - 1 < 0) return canFall = false
+        })
+        return canFall
     }
     rotateBlockZ() {
         if (!this.rotateBlockZCheck()) return

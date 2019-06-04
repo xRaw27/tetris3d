@@ -25,6 +25,9 @@ class Net {
         this.socket.on('update-block', data => {
             game.updateBlock(data.block)
         })
+        this.socket.on('game-started', () => {
+            ui.startGame()
+        })
     }
     login(nick) {
         this.socket.emit('login', { nick: nick })
@@ -39,6 +42,12 @@ class Net {
         this.socket.emit('start-game')
     }
     moveBlock(direction) {
-        this.socket.emit('move-block', { direction: direction })
+        this.socket.emit('block-control', { action: 'move-block', direction: direction })
+    }
+    rotateBlockZ() {
+        this.socket.emit('block-control', { action: 'rotate-block-z' })
+    }
+    rotateBlockY() {
+        this.socket.emit('block-control', { action: 'rotate-block-y' })
     }
 }

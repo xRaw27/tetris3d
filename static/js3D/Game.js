@@ -66,14 +66,12 @@ class Game {
 
     rotateBlockZ() {
         if (this.activeBlock == null) return
-        this.activeBlock.rotateBlockZ()
-        this.setBlockPosition(this.activeBlock)
+        net.rotateBlockZ()
     }
 
     rotateBlockY() {
         if (this.activeBlock == null) return
-        this.activeBlock.rotateBlockY()
-        this.setBlockPosition(this.activeBlock)
+        net.rotateBlockY()
     }
 
     keyboardControls() {
