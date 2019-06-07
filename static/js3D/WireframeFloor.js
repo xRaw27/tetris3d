@@ -1,6 +1,9 @@
-class WireframeFloor {
-    constructor(color, w) {
+class WireframeFloor extends THREE.Object3D {
+    constructor(w, h, color) {
+        super()
         this.w = w
+        this.h = h
+
         this.color = color
         this.obj3D = new THREE.Object3D()
         this.plane = null
@@ -15,37 +18,39 @@ class WireframeFloor {
         this.obj3D.add(this.plane)
     }
     addWireframe() {
-        let x = -1 * this.w * 100 / 2
-        let z = -1 * this.w * 100 / 2
 
-        var linesMaterial = new THREE.LineBasicMaterial({ color: 0x00000, opacity: 1, linewidth: 1 });
+        var linesMaterial = new THREE.LineBasicMaterial({ color: 0xFFFFFF, opacity: 0.1, transparent: true, linew: 1 });
 
+        var x = -1 * this.h * 100 / 2
+        var z = -1 * this.w * 100 / 2
         for (let a = 0; a < this.w + 1; a++) {
             var lineGeometry = new THREE.Geometry()
-            lineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-            lineGeometry.vertices.push(new THREE.Vector3(this.w * 100, 0, 0));
-
-            var lineZ = new THREE.Line(lineGeometry, linesMaterial)
-            lineZ.position.z = z
-            lineZ.position.x = -1 * this.w * 100 / 2
-            this.obj3D.add(lineZ)
-
-            var lineGeometry = new THREE.Geometry()
-            lineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-            lineGeometry.vertices.push(new THREE.Vector3(0, 0, this.w * 100));
+            lineGeometry.vertices.push(new THREE.Vector3(0, 0, 0))
+            lineGeometry.vertices.push(new THREE.Vector3(this.h * 100, 0, 0))
 
             var lineX = new THREE.Line(lineGeometry, linesMaterial)
-            lineX.position.x = x
-            lineX.position.z = -1 * this.w * 100 / 2
-
-            this.obj3D.add(lineX)
+            lineX.position.z = z
+            lineX.position.x = -1 * this.h * 100 / 2
+            this.add(lineX)
 
             z += 100
             x += 100
         }
 
-    }
-    getObj() {
-        return this.obj3D
+        var x = -1 * this.h * 100 / 2
+        var z = -1 * this.w * 100 / 2
+        for (let b = 0; b < this.h + 1; b++) {
+            var lineGeometry = new THREE.Geometry()
+            lineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
+            lineGeometry.vertices.push(new THREE.Vector3(0, 0, this.w * 100));
+
+            var lineZ = new THREE.Line(lineGeometry, linesMaterial)
+            lineZ.position.z = -1 * this.w * 100 / 2
+            lineZ.position.x = x
+            this.add(lineZ)
+
+            z += 100
+            x += 100
+        }
     }
 }

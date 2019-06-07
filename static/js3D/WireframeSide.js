@@ -1,12 +1,13 @@
-class WireframeSide {
+class WireframeSide extends THREE.Object3D {
     constructor(w, h) {
+        super()
         this.obj3D = new THREE.Object3D()
         this.w = w
         this.h = h
         this.addWireframe()
     }
     addWireframe() {
-        var linesMaterial = new THREE.LineBasicMaterial({ color: 0x00000, opacity: 0.1, transparent: true });
+        var linesMaterial = new THREE.LineBasicMaterial({ color: 0xFFFFFF, opacity: 0.1, transparent: true });
 
         let x = -1 * this.w * 100 / 2
         for (let a = 0; a < this.w + 1; a++) {
@@ -15,10 +16,10 @@ class WireframeSide {
             lineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
             lineGeometry.vertices.push(new THREE.Vector3(0, this.h * 100, 0));
 
-            var line2 = new THREE.Line(lineGeometry, linesMaterial)
-            line2.position.x = x
+            var lineZ = new THREE.Line(lineGeometry, linesMaterial)
+            lineZ.position.x = x
 
-            this.obj3D.add(line2)
+            this.add(lineZ)
 
             x += 100
         }
@@ -29,10 +30,10 @@ class WireframeSide {
             lineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
             lineGeometry.vertices.push(new THREE.Vector3(this.w * 100, 0, 0));
 
-            var line = new THREE.Line(lineGeometry, linesMaterial)
-            line.position.x = -1 * this.w * 100 / 2
-            line.position.y = y
-            this.obj3D.add(line)
+            var lineX = new THREE.Line(lineGeometry, linesMaterial)
+            lineX.position.x = -1 * this.w * 100 / 2
+            lineX.position.y = y
+            this.add(lineX)
             y += 100
         }
     }

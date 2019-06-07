@@ -1,17 +1,26 @@
 class Block extends THREE.Object3D {
-    constructor(blockData) {
+    constructor(blockData, color, type) {
         super()
+        this.color = color
+        this.type = type
         this.blockData = blockData
         this.singleBlocks = []
+        this.shadowBlocks = []
         this.initBlock()
         return this
     }
     initBlock() {
+        console.log("TYP BLOKU: " + this.type)
         this.blockData.forEach(element => {
-            let singleBlock = new SingleBlock(element.x, element.y, element.z, 0x000000)
+            let shadowBlock = new SingleBlock(element.x, element.y, element.z, this.color, 0)
+            let singleBlock = new SingleBlock(element.x, element.y, element.z, this.color, this.type)
             this.singleBlocks.push(singleBlock)
+            this.shadowBlocks.push(shadowBlock)
             this.add(singleBlock)
+            this.add(shadowBlock)
+
         })
+        this.blockShadow()
     }
     updateBlock(blockData) {
         this.blockData = blockData
@@ -20,6 +29,43 @@ class Block extends THREE.Object3D {
             this.singleBlocks[index].y = element.y
             this.singleBlocks[index].z = element.z
         })
+        this.blockShadow()
+    }
+    deleteBlock() {
+        this.singleBlocks = []
+        this.shadowBlocks = []
+        for (let i = this.children.length - 1; i >= 0; i--) {
+            this.remove(this.children[i])
+        }
+    }
+    blockShadow() {
+        let max = 0
+        let gap = 100
+        this.singleBlocks.forEach(element => {
+            let newY = 0
+            for (let i = 12; i > 0; i--) {
+                if (game.staticBlocks[element.x][i - 1][element.z] != 0) break
+                newY++
+            }
+            // if (12 - newY >= max) {
+            //     max = 12 - newY
+            // }
+            if (element.y - (12 - newY) < gap) {
+                gap = element.y - (12 - newY)
+            }
+        })
+
+        // this.singleBlocks.forEach(element => {
+
+        // })
+        this.singleBlocks.forEach((element, index) => {
+            this.shadowBlocks[index].x = element.x
+            this.shadowBlocks[index].y = element.y - gap
+            this.shadowBlocks[index].z = element.z
+        })
+        game.setBlockPosition(this, true)
+
+        console.log(this.shadowBlocks)
     }
 }
 

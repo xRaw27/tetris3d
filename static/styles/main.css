@@ -1,15 +1,32 @@
+/* main */
+
 body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI"!important;
+    font-weight: 400;
     color: white;
+}
+h3 {
+    font-weight: 100;
+}
+h1 {
+    font-weight: 100;
+    font-size: 2.1em;
+}
+button {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI"!important;
+    font-weight: 400;
+    text-shadow: 0px 0px 12px #777777;
 }
 #root{
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0, 0, 100, 0.4) 120%) #3a4651; 
+    background-blend-mode: multiply,multiply;
 }
 #bg-div{
     margin: 0;
@@ -20,65 +37,456 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
+    flex-direction: column;
+}
+
+header{
+    border-bottom: 4px solid rgb(241, 214, 60);
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+    /* background-image: linear-gradient( 90.6deg,  rgba(77,34,109,1) -1%, rgba(90,142,253,1) 153.1% ); */
+    /* background-image: linear-gradient( 292.9deg,  rgba(27,13,45,1) 21.2%, rgba(120,64,96,1) 92.1% ); */
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+}
+header img{
+    height: 80%;
+    width: auto;
+    /* position: absolute; */
+    margin-left: 20px;
+}
+section{
+    height: 80vh;
+    box-sizing: border-box;
+    display: flex;
+    align-content: center;
     justify-content: center;
 }
-#login-div{
+
+/* main */
+
+
+
+
+/* rooms */
+
+#rooms-list{
+    width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-left: 1px solid rgba(92, 92, 92, 0.87);
+    border-right: 1px solid rgba(92, 92, 92, 0.87);
+}
+
+#rooms-player-list{
+    width: 25%;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0;
+    box-sizing: border-box;
+}
+
+#rooms-title{
+    text-align: center;
+    font-size: 1.6em;
+    padding: 15px;
+}
+
+#rooms-lists{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    
+}
+#rooms-control-panel{
+    width: 25%;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.rooms-row{
+    text-align: center;
+    padding: 6px 15px;
+    cursor: pointer;
+}
+.rooms-row:hover{
+    background: rgba(0, 0, 0, 0.8);
+}
+
+#rooms-main{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background:rgba(0, 0, 0, 0.808);
-    border: 4px solid rgb(241, 214, 60);
-    width: 350px;
-    height: 300px;
-}
-#rooms-div{
-    display: none;
-    flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
-    background:rgba(0, 0, 0, 0.808);
+    background:rgba(0, 0, 0, 0.8);
     border: 4px solid rgb(241, 214, 60);
     width: 750px;
     height: 550px;
+    padding: 20px;
+    box-sizing: border-box;
 }
-#room {
-    display: none;
-    background:rgba(0, 0, 0, 0.808);
+.bt-control-panel{
+    color: black;
+    background-image: linear-gradient(-90deg, orange,yellow,orange);
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    /* font-weight: bolder; */
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+.bt-control-panel:hover{
+    cursor: pointer;
+    background-image: linear-gradient(-90deg, yellow,orange,yellow);
+}
+#join-room-alert{
+    margin-top: 8px;
+    background: #e42724;
+    color: white;
+    border-radius: 5px;
+    width: 300px;
+    padding: 15px;
+    position: absolute;
+    right: -340px;
+}
+
+
+/* rooms */
+
+
+
+
+/* room */
+
+#room-main {
+    background:rgba(0, 0, 0, 0.8);
     border: 4px solid rgb(241, 214, 60);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
     width: 500px;
     height: 400px;
+    padding: 20px;
+    box-sizing: border-box;
 }
-#nick{
-    margin-left: 10px;
+#room-name{
+    width: 90%;
+    padding-bottom: 20px;
+    font-size: 2.4em;
+    text-align: center;
+    height: 10%;
 }
-.row{
+#create-room-main{
+    position: absolute;
+    z-index: 10;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+#players-in-room-list{
+    margin-top: 15px;
+    overflow-y: scroll;
+    width: 100%;
+    height: 60%;
+    box-sizing: border-box;
+}
+#room-main-players{
+    width: 100%;
+    height: 60%;
+    margin-bottom: 5%;
+}
+
+/* room */
+
+
+
+
+/* forms */
+
+.div-form{
+    align-self: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    background:rgba(0, 0, 0, 0.8);
+    border: 4px solid rgb(241, 214, 60);
+    width: 450px;
+    height: 300px;
+    padding: 20px;
 }
-#login-bt{
-    margin-top: 20px;
-}
-#nick{
+.input-form{
     border: 5px double orange;
     padding: 5px;
     font-size: 1.2em;
     color: white;
-    background: rgba(255, 136, 0, 0.383)
+    background: rgba(255, 136, 0, 0.383);
+    margin-left: 20px;
 }
+.label-form{
+    width: 50px;
+}
+.span-form{
+    margin-top: 10px;
+    position: relative;
+}
+.bt-form{
+    color: black;
+    background-image: linear-gradient(-90deg, orange,yellow,orange);
+    padding: 10px;
+    font-size: 1em;
+    border: 5px double orange;
+}
+.bt-form:hover{
+    cursor: pointer;
+    background-image: linear-gradient(-90deg, yellow,orange,yellow);
+}
+
 .bt{
     color: black;
     background-image: linear-gradient(-90deg, orange,yellow,orange);
     padding: 10px;
     font-size: 1.2em;
+    font-weight: 200;
     border: 5px double orange;
 }
 .bt:hover{
     cursor: pointer;
     background-image: linear-gradient(-90deg, yellow,orange,yellow);
 }
+#login-main{
+    position: absolute;
+    align-self: center;
+    z-index: 10;
+}
+
+.img-close-x{
+    width: 40px;
+    height: auto;
+    position: absolute;
+    right: -60px;
+    top: -60px;
+}
+.img-close-x:hover{
+    cursor: pointer;
+}
+
+/* forms */
+
+
+
+
+/* score board */
+
+#score-board{
+    font-weight: 100;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    width: 280px;
+    height: 380px;
+    border-radius: 20px;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    padding: 30px;
+    border-bottom: 2px solid rgba(241, 214, 60, 0.9);
+    border-top: 2px solid rgba(241, 214, 60, 0.9);
+    box-sizing: border-box;
+}
+#score-board-next{
+    width: 50%;
+}
+#next-block-img{
+    right: 10px;
+    padding: 20px;
+    position: absolute;
+}
+#score-board-next-div{
+    height: 120px;
+}
+.score-board-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+#player-turn {
+    height: 100px;
+    text-align: center;
+    font-size: 1.9em;
+    font-weight: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* score board */
+
+/* help */
+
+#help-panel {
+    font-weight: 100;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    width: 260px;
+    height: 60%;
+    border-radius: 20px;
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    padding: 30px;
+    padding-top: 0;
+    border-bottom: 2px solid #3465a4;
+    border-top: 2px solid #3465a4;
+    box-sizing: border-box;
+}
+
+#help-panel h2 {
+    text-align: center;
+    margin: 10px;
+    margin-top: 40px;
+    font-size: 1.9em;
+    font-weight: 100;
+}
+
+.help-letter {
+    font-size: 1.6em;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.help-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.help-row:first-child {
+    margin-top: 0;
+}
+
+.help-row span {
+    margin-left: 20px;
+}
+
+.help-keyboard {
+    margin-top: 10px;
+    font-size: 2em;
+}
+
+/* help */
+
+
+/* style class */
+
+.div-alert{
+    align-self: center;
+    width: 450px;
+    height: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background:rgba(0, 0, 0, 0.8);
+    border: 4px solid rgb(241, 214, 60);
+    z-index: 10;
+}
+.img-alert{
+    height: 50%;
+    width: auto;
+}
+.div-title{
+    font-size: 1.8em;
+    text-align: center;
+    font-weight: 100;
+    margin-bottom: 10px;
+}
+.div-title-underline{
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(92, 92, 92, 0.87);
+    text-align: left;
+    font-size: 1.6em;
+
+}
+
+.player-row{
+    text-align: left;
+    padding: 6px 15px;
+}
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mt-30{
+    margin-top: 30px;
+}
+.ml-30{
+    margin-left: 30px;
+}
+.mr-20{
+    margin-right: 20px;
+}
+.justify-space-around{
+    justify-content: space-around;
+}
+.input-alert{
+    background: #e42724;
+    color: white;
+    border-radius: 5px;
+    width: 300px;
+    padding: 15px;
+    position: absolute;
+    right: -350px;
+}
+
+/* style class */
+
 
 #waiting{
     color: white;
@@ -90,52 +498,6 @@ body {
     justify-content: center;
 }
 
-#title{
-    text-align: center;
-    font-size: 1.6em;
-    padding: 15px;
-}
-
-#lists{
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-}
-
-.div-title{
-    text-align: center;
-    font-weight: bold;
-}
-
-#room-list-div{
-    width: 50%;
-}
-
-#player-list-div{
-    width: 25%;
-}
-
-.player-row{
-    padding: 6px 15px;
-}
-
-.room-row{
-    padding: 6px 15px;
-}
-
-.room-row:hover{
-    background: rgba(0, 0, 0, 0.808);
-}
-
-.overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#player-best-score-main h2{
+    font-weight: 100;
 }

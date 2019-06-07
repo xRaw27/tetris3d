@@ -11,6 +11,7 @@
     <script src="/libs/jquery331.js"></script>
     <script src="/libs/three.min.js"></script>
     <script src="/libs/OrbitControls.js"></script>
+    <script src="/libs/GLTFLoader.js"></script>
     <!-- <script src="/js3D/Main3D.js"></script> -->
 
     <script src="/socket.io/socket.io.js"></script>
@@ -24,42 +25,144 @@
     <script src="/js/Main.js"></script>
     <script src="/js/Net.js"></script>
     <script src="/js/Ui.js"></script>
+    <script src="/js/GameUi.js"></script>
+    <script src="//mrdoob.github.io/stats.js/build/stats.min.js"></script>
 </head>
 
 <body>
-    <div id='bg-div'>
-        <div id='login-div'>
-            <span class="row">
-                <label>Nick:</label>
-                <input id='nick' type='text'>
-            </span>
+    <div id="bg-div" style="">
+        <header>
+            <img src="../gfx/tetris-logo.png" alt="logo">
+            <div id="player-best-score-main" class="row" style="display: none;">
+                <h2>Najlepszy wynik: </h2>
+                <h2 id="player-best-score" class="ml-30">0</h2>
+            </div>
+            <button id="show-login-bt" class="bt-form mr-20">Logowanie</button>
+            <button id="logout-bt" class="bt-form mr-20" style="display:none">Wyloguj</button>
+        </header>
 
-            <button id='login-bt' class='bt'>Rozpocznij!</button>
-        </div>
-        <div id='rooms-div'>
-            <span id='title'></span>
-            <div id='lists'>
-                <div id='player-list-div'>
-                    <div class='div-title'>Player list</div>
-                    <div id='player-list'></div>
-                </div>
-                <div id='room-list-div'>
-                    <div class='div-title'>Room list</div>
-                    <div id='room-list'></div>
-                </div>
-                <div id='control-panel-div'>
-                    <button id='create-room-bt'>STWÓRZ POKÓJ</button>
+        <section>
+            <div id="reg-main" class="div-form">
+                <h1>Rejestracja</h1>
+                <span class="row span-form">
+                    <label class="label-form">Login:</label>
+                    <input id="regUsername" class="input-form" type="text">
+                    <div id="reg-username-alert" class="input-alert" style="display: none;">
+                        Użytkownik o danym loginie już istnieje!
+                    </div>
+                    <div id="reg-empty-alert" class="input-alert" style="display: none;">
+                        Wprowadź dane rejestracji!
+                    </div>
+                </span>
+                <span class="row span-form">
+                    <label class="label-form">Hasło:</label>
+                    <input id="regPass" class="input-form" type="password">
+                </span>
+                <span class="row span-form">
+                    <input type="checkbox">
+                    <label> Akceptuję politykę prywatności</label>
+                </span>
+                <button id="reg-bt" class="bt-form mt-30">Zarejestruj</button>
+            </div>
+
+
+            <div id="bg-overlay-div" class="overlay" style="display: none;">
+
+            </div>
+
+            <div id="alert-overlay-div" class="overlay" style="display: none;">
+
+            </div>
+
+            <div id="rooms-main" class="mt-30" style="display: none">
+                <div id="rooms-lists">
+                    <div id="rooms-player-list">
+                        <div class="div-title">Gracze</div>
+                        <div id="player-list"></div>
+                    </div>
+                    <div id="rooms-list">
+                        <div class="div-title">Pokoje</div>
+                        <div id="rooms-room-list">
+
+                        </div>
+                    </div>
+                    <div id="rooms-control-panel">
+                        <button id="join-room-bt" class="bt-control-panel">Dołącz</button>
+                        <div id="join-room-alert" style="display: none;">
+                            Gra trwa, nie można dołączyć!
+                        </div>
+
+
+                        <button id="show-create-room-bt" class="bt-control-panel">Stwórz</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id='room'>
-            <div id='room-name'></div>
-            <div id='players-in-room-list'></div>
-            <button id='start-game-bt' class='bt'>Start</button>
 
-        </div>
+            <div id="create-room-main" class="div-form" style="display: none;">
+                <img id="create-room-x" class="img-close-x" src="../gfx/x.png">
+                <h1>Stwórz pokój</h1>
+                <span class="row span-form">
+                    <label class="label-form">Nazwa:</label>
+                    <input id="roomName" class="input-form" type="text">
+                    <div id="create-room-name-alert" style="display: none;">
+                        Wprowadź nazwę pokoju!
+                    </div>
+                </span>
+                <button id="create-room-bt" class="bt-form mt-30">Stwórz</button>
+            </div>
 
-        <div id="waiting" class="overlay" style="display:none;">
+
+            <div id="room-main" class="mt-30" style="display: none;">
+                <div id="room-name" class="div-title"></div>
+                <div id="room-main-players">
+                    <div class="div-title-underline">Gracze</div>
+                    <div id="players-in-room-list">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <button id="start-game-bt" class="bt-form">Graj!</button>
+                    <button id="leave-room-bt" class="bt-form ml-30">Rozłącz</button>
+                </div>
+
+            </div>
+
+
+            <div id="login-main" class="div-form" style="display:none;">
+                <img id="login-x" class="img-close-x" src="../gfx/x.png">
+                <h1>Logowanie</h1>
+                <span class="row span-form">
+                    <label class="label-form">Login:</label>
+                    <input id="loginUsername" class="input-form" type="text">
+                    <div id="login-username-alert" class="input-alert" style="display: none;">
+                        Błędna nazwa użytkownika!
+                    </div>
+                    <div id="login-empty-alert" class="input-alert" style="display: none;">
+                        Wprowadź wszystkie dane!
+                    </div>
+
+                </span>
+
+                <span class="row span-form">
+                    <label class="label-form">Hasło:</label>
+                    <input id="loginPass" class="input-form" type="password">
+                    <div id="login-password-alert" class="input-alert" style="display: none;">
+                        Błędne hasło!
+                    </div>
+                </span>
+
+                <button id="login-bt" class="bt-form mt-30">Zaloguj</button>
+            </div>
+
+            <div id="alert-main" class="div-alert" style="display: none;">
+                <img id="alert-img" src="../gfx/success.png" alt="success" class="img-alert">
+                <h3 id="alert-text"></h3>
+                <button id="alert-bt" class="bt-form">Ok</button>
+            </div>
+
+        </section>
+
+        <!-- <div id="waiting" class="overlay" style="display:none;">
             <div>
                 <h1>Czekaj aż drugi gracz dołączy</h1>
                 <div class="lds-roller">
@@ -73,9 +176,106 @@
                     <div></div>
                 </div>
             </div>
+        </div> -->
+    </div>
+
+
+
+    <div id="score-board" style="display:none;">
+        <div id="player-turn">Twoja kolej</div>
+        <div id="score-board-next-div" class="score-board-row">
+            <h3>Następny: </h3>
+            <img id="next-block-img" src="gfx/blockI.png" alt="block">
+        </div>
+        <div class="score-board-row">
+            <h3>Punkty: </h3>
+            <h3 id="actual-score">0</h3>
         </div>
     </div>
-    <div id='root' style="display: none;"></div>
+
+
+
+
+
+    <div id="help-panel" style="display: none">
+        <h2>Obrót</h2>
+        <div class="help-row">
+            <div class="help-letter">
+                Z
+            </div>
+            <span>
+                Obrót 1
+            </span>
+        </div>
+        <div class="help-row">
+            <div class="help-letter">
+                X
+            </div>
+            <span>
+                Obrót 2
+            </span>
+        </div>
+        <h2>Ruch</h2>
+        <div class="help-row">
+            <div class="help-letter">
+                &#129045;
+            </div>
+            <span>
+                Ruch do przodu
+            </span>
+        </div>
+
+        <div class="help-row">
+            <div class="help-letter">
+                &#129047;
+            </div>
+            <span>
+                Ruch do tyłu
+            </span>
+        </div>
+
+        <div class="help-row">
+            <div class="help-letter">
+                &#129044;
+            </div>
+            <span>
+                Ruch w lewo
+            </span>
+        </div>
+
+        <div class="help-row">
+            <div class="help-letter">
+                &#129046;
+            </div>
+            <span>
+                Ruch w prawo
+            </span>
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+    <div id="game-over-alert-main" class="overlay" style="display:none;">
+        <div id="game-over-alert" class="div-form">
+            <h1>Koniec gry</h1>
+            <div class="row">
+                <h3>Twój wynik: </h3>
+                <h3 id="end-score" class="ml-30"></h3>
+            </div>
+            <button id="game-over-out-bt" class="bt-form mt-30">Wyjdź</button>
+        </div>
+    </div>
+
+
+    <div id="root" style="display:none;"></div>
 </body>
 
 </html>
