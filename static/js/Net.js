@@ -1,6 +1,6 @@
 class Net {
     constructor() {
-        this.socket = io.connect(Settings.serverAddress)
+        this.socket = io()
         this.socket.on('room-list', data => {
             console.log('room-list')
             ui.showRoomList(data)
