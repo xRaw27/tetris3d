@@ -89,7 +89,7 @@ class Gameroom {
         }
     }
     addBlock(io) {
-        if (Math.floor(Math.random() * 2) == 0) {
+        if (Math.floor(Math.random() * 150) == 0) {
             let nextBlock = this.shapes.length - 1
             this.randomBlocks.push(nextBlock)
         } else {
