@@ -101,6 +101,13 @@ class Net {
         this.socket.on('player-turn', data => {
             gameUi.updatePlayerTurn(data.turn)
         })
+        this.socket.on('countdown', data => {
+            console.log(data.text)
+            gameUi.setCountdown(data.text)
+        })
+        this.socket.on('hide-countdown', () => {
+            gameUi.hideCountdown()
+        })
         this.socket.on('show-next-block', data => {
             console.log(data)
             gameUi.updateNextBlock(data.blockName)
@@ -110,7 +117,7 @@ class Net {
             gameUi.updateScore(data.score)
         })
         this.socket.on('game-over', data => {
-            this.socket.emit('game-ended')
+            this.socket.emit('game-ended', data.score)
             gameUi.showGameOverAlert(data.score)
         })
         this.socket.on('set-score', data => {

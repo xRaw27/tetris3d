@@ -293,7 +293,24 @@ section{
 
 /* forms */
 
+/* countdown */
 
+#countdown{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+}
+
+#countdown-text{
+    position: relative;
+    left: -50%;
+    color: white;
+    text-align: center;
+    font-size: 6em;
+    font-weight: 100;
+}
+
+/* countdown */
 
 
 /* score board */

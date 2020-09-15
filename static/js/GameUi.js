@@ -2,6 +2,8 @@ class GameUi {
     constructor() {
         this.scoreBoardMain = $('#score-board')
         this.helpPanelMain = $('#help-panel')
+        this.countdown = $('#countdown')
+        this.countdownText = $('#countdown-text')
         this.gameHelpMain = $('#game-help')
         this.playerTurn = $('#player-turn')
         this.h3ActualScore = $('#actual-score')
@@ -17,6 +19,12 @@ class GameUi {
     }
     showGameHelpMain() {
         this.gameHelpMain.css('display', '')
+    }
+    setCountdown(text) {
+        this.countdownText.text(text)
+    }
+    hideCountdown() {
+        this.countdown.css('display', 'none')
     }
     showScoreBoardMain() {
         console.log(this.scoreBoardMain)

@@ -192,13 +192,13 @@ io.on('connection', socket => {
         room.updateBlock(io)
     })
 
-    socket.on('game-ended', () => {
+    socket.on('game-ended', score => {
         if (!socket.connectedToRoom) return
         if (!socket.loggedIn) return
+        socket.emit('set-score', { score: score })
         socket.connectedToRoom = false
         let room = rooms.find(room => room.id === socket.roomId)
-        db.updateScore(socket.username, room.score, data => {
-            socket.emit('set-score', { score: data.score })
+        db.updateScore(socket.username, score, data => {
             if (data.status == 'DB_ERROR') {
                 console.log('błąd bazy!')
                 return

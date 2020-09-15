@@ -69,7 +69,18 @@ class Gameroom {
         console.log(this.staticBlocks)
         let firstBlock = Math.floor(Math.random() * (this.shapes.length - 1))
         this.randomBlocks.push(firstBlock)
-        this.addBlock(io)
+        let i = 0
+        let countdownText = ["3", "2", "1", "Start!"]
+        let interval = setInterval(() => {
+            console.log(countdownText[i])
+            io.to(this.id).emit('countdown', { text: countdownText[i] })
+            if (i == 4) {
+                clearInterval(interval)
+                io.to(this.id).emit('hide-countdown')
+                this.addBlock(io)
+            }
+            i++
+        }, 1000)
     }
     moveBlock(direction) {
         if (this.block == null) return
