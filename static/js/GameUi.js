@@ -21,6 +21,7 @@ class GameUi {
         this.gameHelpMain.css('display', '')
     }
     setCountdown(text) {
+        this.countdown.css('display', 'block')
         this.countdownText.text(text)
     }
     hideCountdown() {
